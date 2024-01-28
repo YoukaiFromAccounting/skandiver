@@ -9,14 +9,14 @@ EXAMPLE_FILE="GCA_018123985.1_PDT001010899.1_genomic.fna"
 EXAMPLE_URL="https://github.com/YoukaiFromAccounting/skandiver/tree/main/test_files"
 
 #Check for Python Installation
-if ![ -x  "$(command -v python3)" ]; then
+if ! [ -x  "$(command -v python3)" ]; then
 	echo "Python3 not installed; please install Python 3 before continuing."
 	exit 1
 fi 
 
 #Import Python packages
 python3 -c "import pandas, Bio"
-if [ "$?" -eq 1]; then
+if [ "$?" -eq 1 ]; then
 	echo "Python packages pandas and/or Bio not found. Please install."
 	echo "e.g., if using pip installer, use \"pip3 install biopython pandas\""
 	echo "Note, if you are using Ubuntu and do not have pip installed, you can install it using \"sudo apt-get install python3-pip\"."
@@ -32,7 +32,7 @@ if ! [ -x "$(command -v skani)" ]; then
 fi
 
 #Download example datasets
-if [ -e "test_files/GCA_018123985.1_PDT001010899.1_genomic.fna" ]; then
+if [ -e "test_files/abaumanniiWGS" ]; then
 	echo "Examples already installed"
 else
 	mkdir -p "${EXAMPLE_DIR}"
