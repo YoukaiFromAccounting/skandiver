@@ -57,4 +57,4 @@ fi
 echo ========================================
 echo Installation complete!
 echo Test out skandiver on a sample whole genome assembly with:
-echo ./skandiver.sh test_files/abaumanniiWGS results 10000 [PATH_TO_REFERENCE_GENOME_DATABASE]
+echo ./skandiver.sh test_files 10000 [PATH_TO_REFERENCE_GENOME_DATABASE]
