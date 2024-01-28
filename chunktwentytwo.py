@@ -5,7 +5,6 @@ from Bio.SeqRecord import SeqRecord
 import sys
 import os
 import glob
-from tqdm import tqdm
 
 #Take in user input for algorithm parameters
 if len(sys.argv) != 4:
@@ -70,35 +69,31 @@ def group_batch(input_directory, output_file, chunk_size):
     
     #Obtain total files to process
     total_files = len(glob.glob(os.path.join(input_directory, '*.fna'))) + len(glob.glob(os.path.join(input_directory, '*.fasta')))
-    with tqdm(total=total_files, desc="Processing Files", unit="file") as pbar:
-        #Iterate over .fna files individually within input directory 
-        for ind_file in glob.glob(os.path.join(input_directory, '*.fna')):
-            records = list(SeqIO.parse(ind_file, "fasta"))
-            
-            #Iterate over individual batches and run chunking 
-            for i, batch in enumerate(create_batch(records, chunk_size)):
-                all_chunks.extend(batch)
-                pbar.update(1)
-                #filename = os.path.join(output_directory, f"{os.path.splitext(os.path.basename(ind_file))[0]}_chunk{i}.fasta")
-                #SeqIO.write(batch, filename, "fasta") 
-                #print("Successfully chunked",batch, filename)
-               
-        #Iterate over .fasta files individually within input directory 
-        for ind_file in glob.glob(os.path.join(input_directory, '*.fasta')):
-            records = list(SeqIO.parse(ind_file, "fasta"))
-            
-            #Iterate over individual batches and run chunking 
-            for i, batch in enumerate(create_batch(records, chunk_size)):
-                all_chunks.extend(batch)
-                pbar.update(1)
-                #filename = os.path.join(output_directory, f"{os.path.splitext(os.path.basename(ind_file))[0]}_chunk{i}.fasta")
-                #SeqIO.write(batch, filename, "fasta") 
-                #print("Successfully chunked",batch, filename)
+    processed_files = 0
     
-    #Write chunks to singular multifasta file
-    SeqIO.write(all_chunks, output_file, "fasta")
-    print("Successfully created multifasta file:", output_file)
+    #Iterate over .fna files individually within input directory
+    for ind_file in glob.glob(os.path.join(input_directory, '*.fna')):
+        records = list(SeqIO.parse(ind_file, "fasta"))
 
+        #Iterate over individual batches and run chunking
+        for i, batch in enumerate(create_batch(records, chunk_size)):
+            all_chunks.extend(batch)
+            processed_files += 1
+            print(f"\rProcessed {processed_files}/{total_files} files", end='', flush=True)
+
+    #Iterate over .fasta files individually within input directory
+    for ind_file in glob.glob(os.path.join(input_directory, '*.fasta')):
+        records = list(SeqIO.parse(ind_file, "fasta"))
+
+        #Iterate over individual batches and run chunking
+        for i, batch in enumerate(create_batch(records, chunk_size)):
+            all_chunks.extend(batch)
+            processed_files += 1
+            print(f"\rProcessed {processed_files}/{total_files} files", end='', flush=True)
+
+    #Write chunks to a singular multifasta file
+    SeqIO.write(all_chunks, output_file, "fasta")
+    print("\nSuccessfully created multifasta file:", output_file)
 
 group_batch(input_directory, output_file, chunk_size)
 
