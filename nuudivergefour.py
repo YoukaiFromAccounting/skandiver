@@ -4,7 +4,6 @@ import sys
 from Bio import Phylo
 import re
 import pandas as pd
-from tqdm import tqdm
 
 #Function to extract GTDB species names from a column
 #DEPRECATED
@@ -40,8 +39,9 @@ def add_divergence_time_column(tree, lines, outfile, species_file):
     
     #Write the header line with an additional column
     outfile.write(lines[0].strip() + '\tDivergenceTime(MYA)\n')
+    total_lines = len(lines)-1
 
-    for line in tqdm(lines[1:], desc='Adding Divergence Times', unit='lines'):
+    for idx, line in enumerate(lines[1:], start=1):
         cols = line.split('\t')
         reference_species = process_name(cols[5])
         query_species = process_name(cols[6])
@@ -49,11 +49,20 @@ def add_divergence_time_column(tree, lines, outfile, species_file):
         if reference_species != query_species:
             if reference_species in species_names and query_species in species_names:
                 divergence_time = get_divergence_time(tree, reference_species, query_species)
+            else:
+                divergence_time = 0.0
         else:
             divergence_time = 0.0
-    
+
         if isinstance(divergence_time, (float, int)) and divergence_time != 0.0:
             outfile.write(line.strip() + f'\t{divergence_time}\n')
+
+        # Update the custom progress bar
+        progress = int(idx / total_lines * 100)
+        bar_length = 50
+        bar = '[' + '>' * int(bar_length * idx / total_lines) + ' ' * (bar_length - int(bar_length * idx / total_lines)) + ']'
+        sys.stdout.write(f'\rProgress: {progress}% {bar}')
+        sys.stdout.flush()
 
 def extract_query_info(row):
     # Example function to extract information from the Query Name
