@@ -11,7 +11,16 @@ Current version: v0.1.1 released - 2024-01-25
 3. Python 3 (with pandas and bio packages)
 
 ## Setting up skani
-skandiver uses skani (Developed by Jim Shaw at https://github.com/bluenote-1577/skani), a scalable and robust search tool for computing average nucleotide identity between whole genomes. Ensure that skani is properly installed and in PATH. 
+skandiver uses skani (Developed by Jim Shaw at https://github.com/bluenote-1577/skani), a scalable and robust search tool for computing average nucleotide identity between whole genomes. skani can be installed using conda via:
+```
+conda install -c bioconda skani
+```
+Alternatively, a binary version of skani can be downloaded for x86-64 Linux systems via:
+```
+wget https://github.com/bluenote-1577/skani/releases/download/latest/skani
+chmod +x skani
+./skani -h
+```
 
 ## Setting up database of representative genomes
 skani search requires a database of representative genomes to query against. The current recommended database is the Genome Taxonomy Database (GTDB), which contains >85,000 representative genomes. 
