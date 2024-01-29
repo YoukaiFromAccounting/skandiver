@@ -57,3 +57,7 @@ For example, if you followed the above instructions for setting up the GTDB data
 ./skandiver.sh test_files results 10000 gtdb_skani_database_ani
 ```
 This should output four files; results.txt, resultsskani.txt, resultsskanifiltered.txt, and resultssearch.fna. results.txt contains the summary of potential mobile genetic elements found by skandiver, while resultsskani.txt and resultsskanifiltered.txt contain the skani search results for the query whole genome assembly (with resultsskanifiltered only displaying genome matches with greater than 95% average nucleotide identity and 90% align fraction). resultssearch.fna contains the entire fragmented genome assembly used for the skani search. 
+
+## Acknowledgements
+We would like to express our gratitude to the following individuals and organizations for their contributions and support in the development of skandiver: 
+Jim Shaw (https://github.com/bluenote-1577) for the creation and continuous support of skani, a fundamental tool utilized by skandiver for ANI computations, as well as providing valuable guidance and insights into the overall quality and usability of skandiver. 
