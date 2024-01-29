@@ -76,11 +76,18 @@ This should output four files; results.txt, resultsskani.txt, resultsskanifilter
 
 The results file should look like: 
 ```
-GenomeID/AccessionNumber	QuerySpecies	GenomePosition	Number of Hits	Total Divergence	Average Hit Divergence
+GenomeID/AccessionNumber	QuerySpecies	GenomePosition	NumberofHits	TotalDivergence	AverageDivergence
 LFMS01000010.1	Pseudomonas_aeruginosa	46306-56305	2	0.00101	0.000505
 LFMS01000011.1	Pseudomonas_aeruginosa	1662427-1672426	8	4954.9287	619.3660875
 LFMS01000011.1	Pseudomonas_aeruginosa	1672427-1682426	6	1992.8886999999997	332.1481166666666
 ```
+* GenomeID/AccessionNumber: the unique sequence identifier for the complete query species.
+* QuerySpecies: the NCBI common name of the query assembly.
+* GenomePosition: the estimated fragment of the whole genome assembly containing the mobile genetic element.
+* NumberofHits: the number of unique species that the query fragment mapped to with >95% ANI and >90% align fraction (extremely high degree of similarity).
+* TotalDivergence: the total divergence time for all species the query fragment mapped to, in millions of years.
+* AverageDivergence: the average divergence time per species the query fragment mapped to, in millions of years.
+
 
 ## Contact
   Brian Zhang, xiaoleiz@andrew.cmu.edu (Contributing author)  
