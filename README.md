@@ -11,7 +11,8 @@ skandiver is a program for identifying mobile genetic elements (prophages, plasm
 skandiver uses skani (Developed by Jim Shaw at https://github.com/bluenote-1577/skani), a scalable and robust search tool for computing average nucleotide identity between whole genomes. Ensure that skani is properly installed and in PATH. 
 
 ## Setting up database of representative genomes
-skani search requires a database of representative genomes to query against. The current recommended database is the Genome Taxonomy Database (GTDB), which contains >85,000 representative genomes. To setup this database, first ensure that the following requirements are met: 
+skani search requires a database of representative genomes to query against. The current recommended database is the Genome Taxonomy Database (GTDB), which contains >85,000 representative genomes. 
+To setup this database, first ensure that the following requirements are met: 
 *skani is installed and in PATH (i.e. typing ```skani -h``` works). Visit https://github.com/bluenote-1577/skani for more information on setting up skani.
 *~120 GB total free disk space for the uncompressed database and indexing.
 
