@@ -15,8 +15,8 @@ skandiver uses skani (Developed by Jim Shaw at https://github.com/bluenote-1577/
 
 ## Installation and Testing 
 First download the skandiver repository: 
-'''sh
+```sh
 git clone https://github.com/YoukaiFromAccounting/skandiver
 cd skandiver
 bash SETUP.sh
-'''
+```
