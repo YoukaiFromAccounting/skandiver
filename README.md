@@ -61,7 +61,7 @@ pip3 install bio pandas
 ```
 skandiver is now installed on your system, and can be called using the following command structure:
 ```
-./skandiver [INPUT_DIRECTORY] [OUTPUT_NAME] [CHUNK_SIZE] [PATH_TO_REPRESENTATIVE_GENOME_DB]
+./skandiver.sh [INPUT_DIRECTORY] [OUTPUT_NAME] [CHUNK_SIZE] [PATH_TO_REPRESENTATIVE_GENOME_DB]
 ```
 
 You can test skandiver against a sample whole genome assembly of _Acinetobacter baumannii_ by executing the following command: 
