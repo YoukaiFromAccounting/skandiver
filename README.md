@@ -45,8 +45,8 @@ skani sketch -l gtdb_file_names.txt -o gtdb_skani_database_ani -t 20
 ```
 
 
-## Installation and Quick Start
-First download the skandiver repository: 
+## Installation and quick start
+Once the three prerequisites have been met (skani, database of representative genomes, python), you are now ready to initialize and begin working with skandiver. To begin, download the skandiver repository: 
 ```sh
 git clone https://github.com/YoukaiFromAccounting/skandiver
 cd skandiver
@@ -59,6 +59,10 @@ The provided setup script will test your environment for dependencies and downlo
 sudo apt-get install python3-pip
 pip3 install bio pandas
 ```
+skandiver is now installed on your system, and can be called using the following command structure:
+```
+./skandiver [INPUT_DIRECTORY] [OUTPUT_NAME] [CHUNK_SIZE] [PATH_TO_REPRESENTATIVE_GENOME_DB]
+```
 
 You can test skandiver against a sample whole genome assembly of _Acinetobacter baumannii_ by executing the following command: 
 ```
@@ -69,6 +73,14 @@ For example, if you followed the above instructions for setting up the GTDB data
 ./skandiver.sh test_files results 10000 gtdb_skani_database_ani
 ```
 This should output four files; results.txt, resultsskani.txt, resultsskanifiltered.txt, and resultssearch.fna. results.txt contains the summary of potential mobile genetic elements found by skandiver, while resultsskani.txt and resultsskanifiltered.txt contain the skani search results for the query whole genome assembly (with resultsskanifiltered only displaying genome matches with greater than 95% average nucleotide identity and 90% align fraction). resultssearch.fna contains the entire fragmented genome assembly used for the skani search. 
+
+The results file should look like: 
+```
+GenomeID/AccessionNumber	QuerySpecies	GenomePosition	Number of Hits	Total Divergence	Average Hit Divergence
+LFMS01000010.1	Pseudomonas_aeruginosa	46306-56305	2	0.00101	0.000505
+LFMS01000011.1	Pseudomonas_aeruginosa	1662427-1672426	8	4954.9287	619.3660875
+LFMS01000011.1	Pseudomonas_aeruginosa	1672427-1682426	6	1992.8886999999997	332.1481166666666
+```
 
 ## Contact
   Brian Zhang, xiaoleiz@andrew.cmu.edu (Contributing author)  
