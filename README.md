@@ -60,6 +60,7 @@ This should output four files; results.txt, resultsskani.txt, resultsskanifilter
 
 ## Contact
   Brian Zhang, xiaoleiz@andrew.cmu.edu (Contributing author)
+  
   Grace Oualline, gouallin@andrew.cmu.edu (Contributing author)
 
 ## Acknowledgements
