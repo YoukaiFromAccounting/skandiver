@@ -66,7 +66,7 @@ skandiver is now installed on your system, and can be called using the following
 
 You can test skandiver against a sample whole genome assembly of _Acinetobacter baumannii_ by executing the following command: 
 ```
-**./skandiver.sh test_files results 10000 [PATH_TO_REPRESENTATIVE_GENOME_DB]**
+./skandiver.sh test_files results 10000 [PATH_TO_REPRESENTATIVE_GENOME_DB]
 ```
 For example, if you followed the above instructions for setting up the GTDB database of representative genomes in the skandiver directory, you can run:
 ```
