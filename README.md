@@ -33,7 +33,7 @@ skani sketch -l gtdb_file_names.txt -o gtdb_skani_database_ani -t 20
 ```
 
 
-## Installation and Testing 
+## Installation and Quick Start
 First download the skandiver repository: 
 ```sh
 git clone https://github.com/YoukaiFromAccounting/skandiver
