@@ -5,8 +5,5 @@ skandiver is a program for identifying mobile genetic elements (prophages, plasm
 ## Requirements 
 1. skani (Version 0.2.1 or higher)
 2. Database of representative genomes (Recommended GTDB Database, see below for installation details)
-3. Python 3
-4. Python Packages:
-   -pandas
-   -bio
+3. Python 3 (with pandas and bio packages)
 
