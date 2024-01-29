@@ -65,5 +65,5 @@ We would like to express our gratitude to the following individuals and organiza
 * Jim Shaw (https://github.com/bluenote-1577) for the creation and continuous support of skani, a fundamental tool utilized by skandiver for ANI computations, as well as providing valuable guidance regarding the overall quality and usability of skandiver.
 * Yun William Yu (https://github.com/yunwilliamyu) for providing algorithmic support and troubleshooting expertise, greatly improving skandiver's efficiency.
 
-This implementation of skandiver was based on the ideas and software from the following paper: 
+This implementation of skandiver was based on the ideas and software from the following paper:   
   Shaw, J., & Yu, Y. W. (2023). Fast and robust metagenomic sequence comparison through sparse chaining with skani. Nature methods, 20(11), 1661–1665. https://doi.org/10.1038/s41592-023-02018-3
