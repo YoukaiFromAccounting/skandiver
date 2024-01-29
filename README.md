@@ -20,3 +20,9 @@ git clone https://github.com/YoukaiFromAccounting/skandiver
 cd skandiver
 bash SETUP.sh
 ```
+
+The provided setup script will test your environment for dependencies and download an example data set. You can also install all needed dependencies using the following: 
+```sh
+sudo apt-get install python3-pip
+pip3 install bio pandas
+```
