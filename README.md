@@ -9,3 +9,14 @@ skandiver is a program for identifying mobile genetic elements (prophages, plasm
 
 ## Setting up skani
 skandiver uses skani (Developed by Jim Shaw at https://github.com/bluenote-1577/skani), a scalable and robust search tool for computing average nucleotide identity between whole genomes. Ensure that skani is properly installed and in PATH. 
+
+## Setting up GTDB 
+
+
+## Installation and Testing 
+First download the skandiver repository: 
+'''sh
+git clone https://github.com/YoukaiFromAccounting/skandiver
+cd skandiver
+bash SETUP.sh
+'''
