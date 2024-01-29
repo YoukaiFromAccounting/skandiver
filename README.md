@@ -59,6 +59,8 @@ For example, if you followed the above instructions for setting up the GTDB data
 This should output four files; results.txt, resultsskani.txt, resultsskanifiltered.txt, and resultssearch.fna. results.txt contains the summary of potential mobile genetic elements found by skandiver, while resultsskani.txt and resultsskanifiltered.txt contain the skani search results for the query whole genome assembly (with resultsskanifiltered only displaying genome matches with greater than 95% average nucleotide identity and 90% align fraction). resultssearch.fna contains the entire fragmented genome assembly used for the skani search. 
 
 ## Contact
+  Brian Zhang, xiaoleiz@andrew.cmu.edu (Contributing author)
+  Grace Oualline, gouallin@andrew.cmu.edu (Contributing author)
 
 ## Acknowledgements
 We would like to express our gratitude to the following individuals and organizations for their major contributions and support in the development of skandiver: 
@@ -66,4 +68,4 @@ We would like to express our gratitude to the following individuals and organiza
 * Yun William Yu (https://github.com/yunwilliamyu) for providing algorithmic support and troubleshooting expertise, greatly improving skandiver's efficiency.
 
 This implementation of skandiver was based on the ideas and software from the following paper:   
-  Shaw, J., & Yu, Y. W. (2023). Fast and robust metagenomic sequence comparison through sparse chaining with skani. Nature methods, 20(11), 1661–1665. https://doi.org/10.1038/s41592-023-02018-3
+    Shaw, J., & Yu, Y. W. (2023). Fast and robust metagenomic sequence comparison through sparse chaining with skani. Nature methods, 20(11), 1661–1665. https://doi.org/10.1038/s41592-023-02018-3
