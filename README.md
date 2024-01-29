@@ -14,7 +14,7 @@ skandiver uses skani (Developed by Jim Shaw at https://github.com/bluenote-1577/
 skani search requires a database of representative genomes to query against. The current recommended database is the Genome Taxonomy Database (GTDB), which contains >85,000 representative genomes. 
 To setup this database, first ensure that the following requirements are met: 
 * skani is installed and in PATH (i.e. typing ```skani -h``` works). Visit https://github.com/bluenote-1577/skani for more information on setting up skani.
-* ~120 GB total free disk space for the uncompressed database and indexing.
+* ~120 GB free disk space is available for the uncompressed database and indexing.
 
 First, download the compressed GTDB database and unzip it:
 ```
@@ -38,6 +38,7 @@ First download the skandiver repository:
 ```sh
 git clone https://github.com/YoukaiFromAccounting/skandiver
 cd skandiver
+chmod +x skandiver.sh
 bash SETUP.sh
 ```
 
@@ -45,4 +46,9 @@ The provided setup script will test your environment for dependencies and downlo
 ```sh
 sudo apt-get install python3-pip
 pip3 install bio pandas
+```
+
+You can test skandiver against a sample whole genome assembly of _Acinetobacter baumannii_ by executing the following command: 
+```
+./skandiver.sh test_files results 10000 [PATH_TO_REPRESENTATIVE_GENOME_DB]
 ```
