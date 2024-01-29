@@ -1,5 +1,5 @@
 # skandiver: a divergence-based analysis tool for identifying intercellular mobile genetic elements
-# Current version: v0.1.1 - 2024-01-25
+**Current version: v0.1.1 - 2024-01-25**
 ## Introduction
 skandiver is a program for identifying mobile genetic elements (prophages, plasmids, transposases, etc.) from assembled whole genome sequences using average nucleotide identity (ANI) and evolutionary divergence time. 
 
