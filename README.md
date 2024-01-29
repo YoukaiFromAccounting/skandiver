@@ -66,7 +66,7 @@ skandiver is now installed on your system, and can be called using the following
 
 You can test skandiver against a sample whole genome assembly of _Acinetobacter baumannii_ by executing the following command: 
 ```
-./skandiver.sh test_files results 10000 [PATH_TO_REPRESENTATIVE_GENOME_DB]
+**./skandiver.sh test_files results 10000 [PATH_TO_REPRESENTATIVE_GENOME_DB]**
 ```
 For example, if you followed the above instructions for setting up the GTDB database of representative genomes in the skandiver directory, you can run:
 ```
@@ -74,7 +74,7 @@ For example, if you followed the above instructions for setting up the GTDB data
 ```
 This should output four files; results.txt, resultsskani.txt, resultsskanifiltered.txt, and resultssearch.fna. results.txt contains the summary of potential mobile genetic elements found by skandiver, while resultsskani.txt and resultsskanifiltered.txt contain the skani search results for the query whole genome assembly (with resultsskanifiltered only displaying genome matches with greater than 95% average nucleotide identity and 90% align fraction). resultssearch.fna contains the entire fragmented genome assembly used for the skani search. 
 
-The results file should look like: 
+The results file looks like the following for a sample whole genome assembly of _Pseudomonas aeruginosa_:
 ```
 GenomeID/AccessionNumber	QuerySpecies	GenomePosition	NumberofHits	TotalDivergence	AverageDivergence
 LFMS01000010.1	Pseudomonas_aeruginosa	46306-56305	2	0.00101	0.000505
@@ -88,6 +88,7 @@ LFMS01000011.1	Pseudomonas_aeruginosa	1672427-1682426	6	1992.8886999999997	332.1
 * TotalDivergence: the total divergence time for all species the query fragment mapped to, in millions of years.
 * AverageDivergence: the average divergence time per species the query fragment mapped to, in millions of years.
 
+As skandiver is considerably faster than gene annotation-based mobile element finders, you can bulk download a large set of whole genome assemblies in .fna or .fasta format (compressed or uncompressed both work) into the [INPUT_DIRECTORY] of skandiver to perform efficient analysis of potential mobile genetic elements in metagenomic data.
 
 ## Contact
   Brian Zhang, xiaoleiz@andrew.cmu.edu (Contributing author)  
