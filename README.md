@@ -16,14 +16,20 @@ skani search requires a database of representative genomes to query against. The
 *~120 GB total free disk space for the uncompressed database and indexing.
 
 First, download the compressed GTDB database and unzip it:
-```wget https://data.gtdb.ecogenomic.org/releases/release214/214.1/genomic_files_reps/gtdb_genomes_reps_r214.tar.gz
-tar -xf gtdb_genomes_reps_r214.tar.gz```
+```
+wget https://data.gtdb.ecogenomic.org/releases/release214/214.1/genomic_files_reps/gtdb_genomes_reps_r214.tar.gz
+tar -xf gtdb_genomes_reps_r214.tar.gz
+```
 
 The gtdb database is formatted in a special way. In order to process the reference genome files inside the gtdb folder, we have to do a bit of work. We can run the following to collect all genomes locations into a file called ```gtdb_file_names.txt```.
-```find gtdb_genomes_reps_r214/ | grep .fna > gtdb_file_names.txt```
+```
+find gtdb_genomes_reps_r214/ | grep .fna > gtdb_file_names.txt
+```
 
 Next, we can construct the indexed database to query against using:
-```skani sketch -l gtdb_file_names.txt -o gtdb_skani_database_ani -t 20```
+```
+skani sketch -l gtdb_file_names.txt -o gtdb_skani_database_ani -t 20
+```
 
 
 ## Installation and Testing 
