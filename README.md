@@ -39,7 +39,7 @@ The gtdb database is formatted in a special way. In order to process the referen
 find gtdb_genomes_reps_r214/ | grep .fna > gtdb_file_names.txt
 ```
 
-Next, we can construct the indexed database to query against using:
+Finally, we can construct the indexed database to query against using:
 ```
 skani sketch -l gtdb_file_names.txt -o gtdb_skani_database_ani -t 20
 ```
