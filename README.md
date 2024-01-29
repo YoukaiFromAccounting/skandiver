@@ -12,7 +12,7 @@ skandiver uses skani (Developed by Jim Shaw at https://github.com/bluenote-1577/
 
 ## Setting up Genome Taxonomy Database representative genomes
 skani search requires a database of representative genomes to query against. The current recommended database is the Genome Taxonomy Database (GTDB), which contains >85,000 representative genomes. To setup this database, first ensure that the following requirements are met: 
-*skani is installed and in PATH (i.e. typing ```sh skani -h``` works). 
+*skani is installed and in PATH (i.e. typing ``` skani -h``` works). 
 
 ## Installation and Testing 
 First download the skandiver repository: 
