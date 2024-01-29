@@ -59,8 +59,7 @@ For example, if you followed the above instructions for setting up the GTDB data
 This should output four files; results.txt, resultsskani.txt, resultsskanifiltered.txt, and resultssearch.fna. results.txt contains the summary of potential mobile genetic elements found by skandiver, while resultsskani.txt and resultsskanifiltered.txt contain the skani search results for the query whole genome assembly (with resultsskanifiltered only displaying genome matches with greater than 95% average nucleotide identity and 90% align fraction). resultssearch.fna contains the entire fragmented genome assembly used for the skani search. 
 
 ## Contact
-  Brian Zhang, xiaoleiz@andrew.cmu.edu (Contributing author)
-  
+  Brian Zhang, xiaoleiz@andrew.cmu.edu (Contributing author)  
   Grace Oualline, gouallin@andrew.cmu.edu (Contributing author)
 
 ## Acknowledgements
