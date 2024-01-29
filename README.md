@@ -1,8 +1,5 @@
 # <img width="156" alt="image" src="https://github.com/YoukaiFromAccounting/skandiver/assets/14861442/9871ada2-692b-4cf3-9228-9f8c930134bf">  skandiver: a divergence-based analysis tool for identifying intercellular mobile genetic elements 
 
-<img width="156" alt="image" src="https://github.com/YoukaiFromAccounting/skandiver/assets/14861442/9871ada2-692b-4cf3-9228-9f8c930134bf">
-Current version: v0.1.1 - 2024-01-25
-
 ## Introduction
 **skandiver** is a program for identifying mobile genetic elements (prophages, plasmids, transposases, etc.) from assembled whole genome sequences using average nucleotide identity (ANI) and evolutionary divergence time. 
 
