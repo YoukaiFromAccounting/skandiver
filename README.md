@@ -52,3 +52,7 @@ You can test skandiver against a sample whole genome assembly of _Acinetobacter 
 ```
 ./skandiver.sh test_files results 10000 [PATH_TO_REPRESENTATIVE_GENOME_DB]
 ```
+For example, if you followed the above instructions for setting up the GTDB database of representative genomes in the skandiver directory, you can run:
+```
+./skandiver.sh test_files results 10000 gtdb_skani_database_ani
+```
