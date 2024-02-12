@@ -44,6 +44,13 @@ Finally, we can construct the indexed database to query against using:
 skani sketch -l gtdb_file_names.txt -o gtdb_skani_database_ani -t 20
 ```
 
+Note: this process of setting up the database of representative genomes can be replicated for any directory of representative fna.gz files. You can create your own custom representative genome database to search against by downloading a set of representative whole genomes from NCBI, Ensembl, RefSeq, etc. Once the directory of genomes has been initialized, simply run:
+```
+find [PATH_TO_REP_DIRECTORY/] | grep .fna > customdb_file_names.txt
+skani sketch -l customdb_file_names.txt -o custondb_skani_database_ani -t 20
+```
+Now you have created a custom database of representative genomes that skandiver/skani can be used to query against. 
+
 
 ## Installation and quick start
 Once the three prerequisites have been met (skani, database of representative genomes, python), you are now ready to initialize and begin working with skandiver. To begin, download the skandiver repository: 
