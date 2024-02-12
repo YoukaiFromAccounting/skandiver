@@ -32,7 +32,7 @@ if ! [ -x "$(command -v skani)" ]; then
 fi
 
 #Download example datasets
-if [ -e "test_files/abaumanniiWGS" ]; then
+if [ -e "test_files/abaumannii/abaumanniiWGS.fna" ]; then
 	echo "Examples already installed"
 else
 	mkdir -p "${EXAMPLE_DIR}"
