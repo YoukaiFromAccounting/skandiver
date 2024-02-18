@@ -30,7 +30,8 @@ To setup this database, first ensure that the following requirements are met:
 
 First, download the compressed GTDB database and unzip it:
 ```
-wget https://data.gtdb.ecogenomic.org/releases/release214/214.1/genomic_files_reps/gtdb_genomes_reps_r214.tar.gz
+wget
+https://data.gtdb.ecogenomic.org/releases/release214/214.1/genomic_files_reps/gtdb_genomes_reps_r214.tar.gz
 tar -xf gtdb_genomes_reps_r214.tar.gz
 ```
 
