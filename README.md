@@ -84,10 +84,11 @@ This should output four files; results.txt, resultsskani.txt, resultsskanifilter
 
 The results file looks like the following for a sample whole genome assembly of _Pseudomonas aeruginosa_:
 ```
-GenomeID/AccessionNumber	QuerySpecies	GenomePosition	NumberofHits	TotalDivergence	AverageDivergence
-LFMS01000010.1	Pseudomonas_aeruginosa	46306-56305	2	0.00101	0.000505
-LFMS01000011.1	Pseudomonas_aeruginosa	1662427-1672426	8	4954.9287	619.3660875
-LFMS01000011.1	Pseudomonas_aeruginosa	1672427-1682426	6	1992.8886999999997	332.1481166666666
+GenomeID/AccessionNumber	QuerySpecies	GenomePosition	NumberofHits  TotalDivergence	AverageDivergence  RefSpeciesHits
+LFMS01000010.1	Pseudomonas_aeruginosa	46306-56305	2	0.00101	0.000505  Pseudomonas_taiwanensis, Pseudomonas_jinjuensis
+LFMS01000011.1	Pseudomonas_aeruginosa	1662427-1672426	8	4954.9287	619.3660875  Stutzerimonas_stutzeri, Cronobacter_muytjensii, Cronobacter_universalis, Pseudomonas_putida, Pseudomonas_mosselii, Pseudomonas_saponiphila, Achromobacter_xylosoxidans
+LFMS01000011.1	Pseudomonas_aeruginosa	1672427-1682426	6	1992.8886999999997	332.1481166666666  Stutzerimonas_stutzeri, Pseudomonas_putida, Pseudomonas_mosselii, Pseudomonas_saponiphila, Achromobacter_xylosoxidans
+
 ```
 * GenomeID/AccessionNumber: the unique sequence identifier for the complete query species.
 * QuerySpecies: the NCBI common name of the query assembly.
