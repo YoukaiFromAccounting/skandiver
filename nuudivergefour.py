@@ -31,7 +31,6 @@ def process_name(name):
     processed_name = '_'.join(parts[:2]) 
     return processed_name
 
-
 def add_divergence_time_column(tree, lines, outfile, species_file):
     #Read the species names from the text file
     with open(species_file, 'r') as species_file:
@@ -94,25 +93,34 @@ def analyze_results(input_file, output_file):
     for index, row in df.iterrows():
         query_name = row['Query_name']
         divergence_time = row['DivergenceTime(MYA)']
-
+        match_name = process_name(row['Ref_name'])
         #IMPORTANT: Check if species exist in directory
         if query_name in query_info:
             query_info[query_name]['Number of Hits'] += 1
             query_info[query_name]['Total Divergence'] += divergence_time
+            if match_name not in query_info[query_name]['RefSpeciesHits']:
+                query_info[query_name]['RefSpeciesHits'].add(match_name)
         else:
-            query_info[query_name] = {'Number of Hits': 1, 'Total Divergence': divergence_time}
+            query_info[query_name] = {'Number of Hits': 1, 'Total Divergence': divergence_time, 'RefSpeciesHits': {match_name}}
 
     #Create summary dataframe
     summary_df = pd.DataFrame.from_dict(query_info, orient='index')
     summary_df.reset_index(inplace=True)
-    summary_df.columns = ['Query Name', 'Number of Hits', 'Total Divergence']
+    summary_df.columns = ['Query Name', 'Number of Hits', 'Total Divergence', 'RefSpeciesHits']
 
     #Calculate the average divergence for each query
     summary_df['Average Hit Divergence'] = summary_df['Total Divergence'] / summary_df['Number of Hits']
     
+    #Convert ref hits to string and remove curly brackets and single quotation marks
+    summary_df['RefSpeciesHits'] = summary_df['RefSpeciesHits'].apply(lambda x: ', '.join(x))
+
     split_df = summary_df.apply(extract_query_info, axis=1)
     concat_df = pd.concat([split_df, summary_df], axis=1)
     concat_df = concat_df.drop('Query Name', axis=1)
+    
+    #Reorder results columns
+    output_order = ['GenomeID/AccessionNumber', 'QuerySpecies', 'GenomePosition', 'Number of Hits', 'Total Divergence', 'Average Hit Divergence', 'RefSpeciesHits'] 
+    concat_df = concat_df.reindex(columns=output_order)
     
     #Write the summary DataFrame to a new results file (tabs as separators)
     with open(output_file, 'w') as outfile:
