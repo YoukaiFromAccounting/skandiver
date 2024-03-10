@@ -2,6 +2,7 @@
 
 import sys
 from Bio import Phylo
+from Bio import Entrez, SeqIO
 import re
 import pandas as pd
 
@@ -26,10 +27,42 @@ def get_divergence_time(tree, species1, species2):
 	
 #Function to process a name by removing any numbers/special characters
 def process_name(name):
-    #Split the name into words and filter out unwanted words
+    #Split the name into words and filter
     parts = [part for part in name.split() if not any(c.isdigit() or c in '-_:;!`~+' for c in part)]
     processed_name = '_'.join(parts[:2]) 
     return processed_name
+    
+def get_gene_name(genome_id):
+    try:
+        # Search NCBI database for gene name based on genome ID
+        handle = Entrez.esearch(db="nucleotide", term=genome_id)
+        #print("handle", handle)
+        record = Entrez.read(handle)
+        #print("record", record)
+        if int(record['Count']) > 0:
+            # Fetch the first record (usually the most relevant)
+            gene_id = record['IdList'][0]
+            summary = Entrez.esummary(db="nucleotide", id=gene_id)
+            summary_record = Entrez.read(summary)
+            gene_name = summary_record[0]['Title']
+            return gene_name
+        else:
+            return None
+    except Exception as e:
+        print(f"Error occurred while fetching gene name for {genome_id}: {e}")
+        return None
+
+def update_titles(input_file, output_file):
+    # Read multifasta file and update titles
+    with open(input_file, "r") as infile, open(output_file, "w") as outfile:
+        for record in SeqIO.parse(infile, "fasta"):
+            genome_id = record.id
+            print("genome_id", genome_id)
+            gene_name = get_gene_name(genome_id)
+            if gene_name:
+                record.description = gene_name
+            SeqIO.write(record, outfile, "fasta")
+
 
 def add_divergence_time_column(tree, lines, outfile, species_file):
     #Read the species names from the text file
@@ -49,14 +82,18 @@ def add_divergence_time_column(tree, lines, outfile, species_file):
             if reference_species in species_names and query_species in species_names:
                 divergence_time = get_divergence_time(tree, reference_species, query_species)
             else:
-                divergence_time = 0.0
+                #In this case, we are unable to determine the divergence time 
+                #Possibly due to uncharacterized reference or query species
+                #Set divergence time to negative 1 for later post-processing
+                divergence_time = -1.0
         else:
+            #In this case the reference and query species are the same, thus divergence time is 0
             divergence_time = 0.0
 
         if isinstance(divergence_time, (float, int)) and divergence_time != 0.0:
             outfile.write(line.strip() + f'\t{divergence_time}\n')
 
-        # Update the custom progress bar
+        #Periodically update the progress bar
         progress = int(idx / total_lines * 100)
         bar_length = 50
         bar = '[' + '>' * int(bar_length * idx / total_lines) + ' ' * (bar_length - int(bar_length * idx / total_lines)) + ']'
@@ -83,7 +120,10 @@ def extract_query_info(row):
                       'GenomePosition': genome_position})
 
 #Function to output a set of potential MEs (fragments with significant total divergence time)
-def analyze_results(input_file, output_file):
+def analyze_results(input_file, output_file, tree, species_file):
+    #Read the species names from the text file
+    with open(species_file, 'r') as species_file:
+        species_names = set(line.strip() for line in species_file)
     df = pd.read_csv(input_file, sep='\t')
 
     #Store information for each query
@@ -94,15 +134,43 @@ def analyze_results(input_file, output_file):
         query_name = row['Query_name']
         divergence_time = row['DivergenceTime(MYA)']
         match_name = process_name(row['Ref_name'])
+        
         #IMPORTANT: Check if species exist in directory
         if query_name in query_info:
             query_info[query_name]['NumberHits'] += 1
             query_info[query_name]['TotalDivergence'] += divergence_time
+            #Append total species matches 
             if match_name not in query_info[query_name]['RefSpeciesHits']:
                 query_info[query_name]['RefSpeciesHits'].add(match_name)
         else:
             query_info[query_name] = {'NumberHits': 1, 'TotalDivergence': divergence_time, 'RefSpeciesHits': {match_name}}
 
+    #Recalculate divergence time for unknown query
+    for query_name, info in query_info.items():
+        if info['TotalDivergence'] < 0.0:
+            total_divergence = 0.0
+            total_pairs = 0
+            
+            unknown_species_hits = list(info['RefSpeciesHits'])
+            
+            #Calculate pairwise divergence time for all valid species
+            for i in range(len(unknown_species_hits)):
+                for j in range(i + 1, len(unknown_species_hits)):
+                    species1 = unknown_species_hits[i]
+                    species2 = unknown_species_hits[j]
+                    if species1 in species_names and species2 in species_names:
+                        temporary_divergence_time = get_divergence_time(tree, species1, species2)
+
+                        #print("New divergence time is:", temporary_divergence_time)
+                    
+                        if temporary_divergence_time is not None:
+                            total_divergence += temporary_divergence_time
+                            total_pairs += 1
+                        
+            if total_pairs > 0:
+                new_divergence_time = total_divergence / total_pairs
+                info['TotalDivergence'] = new_divergence_time
+    
     #Create summary dataframe
     summary_df = pd.DataFrame.from_dict(query_info, orient='index')
     summary_df.reset_index(inplace=True)
@@ -148,5 +216,5 @@ if __name__ == "__main__":
     with open(output_results_file, 'w') as outfile:
         add_divergence_time_column(tree, lines, outfile, "gtdb_species_addenumall.txt")
 
-    analyze_results(output_results_file, output_summary_file)
+    analyze_results(output_results_file, output_summary_file, tree, "gtdb_species_addenumall.txt")
     print("Done")
