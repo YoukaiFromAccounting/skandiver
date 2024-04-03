@@ -152,7 +152,7 @@ def analyze_results(input_file, output_file, tree, species_file):
             total_pairs = 0
             
             unknown_species_hits = list(info['RefSpeciesHits'])
-            """
+            
             # Find the first species in unknown_species_hits that is also in species_names
             selected_species = next((species for species in unknown_species_hits if species in species_names), None)
             
@@ -166,10 +166,10 @@ def analyze_results(input_file, output_file, tree, species_file):
                             total_divergence += temporary_divergence_time
                             total_pairs += 1
             
-            """
+            
             #DEPRECATED PAIRWISE DIVERGENCE
             #Calculate pairwise divergence time for all valid species
-            
+            """
             for i in range(len(unknown_species_hits)):
                 for j in range(i + 1, len(unknown_species_hits)):
                     species1 = unknown_species_hits[i]
@@ -187,7 +187,8 @@ def analyze_results(input_file, output_file, tree, species_file):
             if total_pairs > 0:
                 new_divergence_time = total_divergence / total_pairs
                 info['TotalDivergence'] = new_divergence_time
-    
+            """
+            
     #Create summary dataframe
     summary_df = pd.DataFrame.from_dict(query_info, orient='index')
     summary_df.reset_index(inplace=True)
