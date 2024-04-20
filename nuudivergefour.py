@@ -134,8 +134,8 @@ def analyze_results(input_file, output_file, tree, species_file):
         query_name = row['Query_name']
         divergence_time = row['DivergenceTime(MYA)']
         match_name = process_name(row['Ref_name'])
-        ani = row['ANI']
-        align_frac_ref = row['Align_fraction_ref']
+        ani = float(row['ANI'])
+        align_frac_ref = float(row['Align_fraction_ref'])
         
         #IMPORTANT: Check if species exist in directory
         if query_name in query_info:
@@ -196,7 +196,7 @@ def analyze_results(input_file, output_file, tree, species_file):
     #Create summary dataframe
     summary_df = pd.DataFrame.from_dict(query_info, orient='index')
     summary_df.reset_index(inplace=True)
-    summary_df.columns = ['Query Name', 'NumberHits', 'TotalDivergence', 'TotalANI', 'TotalAlignFracRef', 'RefSpeciesHits']
+    summary_df.columns = ['Query Name', 'NumberHits', 'TotalDivergence', 'RefSpeciesHits', 'TotalANI', 'TotalAlignFracRef']
 
     #Ensure there exists more than one match for queries
     summary_df = summary_df[summary_df['TotalDivergence'] != -1.0]
