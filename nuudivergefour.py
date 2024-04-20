@@ -144,7 +144,7 @@ def analyze_results(input_file, output_file, tree, species_file):
             query_info[query_name]['TotalDivergence'] += divergence_time
             query_info[query_name]['TotalANI'] += ani
             query_info[query_name]['TotalAlignFracRef'] += align_frac_ref
-            query_info[query_name]['TotalAlignFracQuery'] += algn_frac_q
+            query_info[query_name]['TotalAlignFracQuery'] += align_frac_q
             #Append total species matches 
             if match_name not in query_info[query_name]['RefSpeciesHits']:
                 query_info[query_name]['RefSpeciesHits'].add(match_name)
