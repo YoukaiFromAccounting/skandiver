@@ -134,16 +134,20 @@ def analyze_results(input_file, output_file, tree, species_file):
         query_name = row['Query_name']
         divergence_time = row['DivergenceTime(MYA)']
         match_name = process_name(row['Ref_name'])
+        ani = row['ANI']
+        align_frac_ref = row['Align_fraction_ref']
         
         #IMPORTANT: Check if species exist in directory
         if query_name in query_info:
             query_info[query_name]['NumberHits'] += 1
             query_info[query_name]['TotalDivergence'] += divergence_time
+            query_info[query_name]['TotalANI'] += ani
+            query_info[query_name]['TotalAlignFracRef'] += align_frac_ref
             #Append total species matches 
             if match_name not in query_info[query_name]['RefSpeciesHits']:
                 query_info[query_name]['RefSpeciesHits'].add(match_name)
         else:
-            query_info[query_name] = {'NumberHits': 1, 'TotalDivergence': divergence_time, 'RefSpeciesHits': {match_name}}
+            query_info[query_name] = {'NumberHits': 1, 'TotalDivergence': divergence_time, 'RefSpeciesHits': {match_name}, 'TotalANI': ani, 'TotalAlignFracRef': align_frac_ref}
 
     #Recalculate divergence time for unknown query
     for query_name, info in query_info.items():
@@ -153,11 +157,11 @@ def analyze_results(input_file, output_file, tree, species_file):
             
             unknown_species_hits = list(info['RefSpeciesHits'])
             
-            # Find the first species in unknown_species_hits that is also in species_names
+            #Find the first species in unknown_species_hits that is also in species_names
             selected_species = next((species for species in unknown_species_hits if species in species_names), None)
             
             if selected_species is not None:
-                # Calculate pairwise divergence time between selected_species and other species in unknown_species_hits
+                #Calculate pairwise divergence time between selected_species and other species in unknown_species_hits
                 for species in unknown_species_hits:
                     if species != selected_species:
                         temporary_divergence_time = get_divergence_time(tree, selected_species, species)
@@ -192,13 +196,16 @@ def analyze_results(input_file, output_file, tree, species_file):
     #Create summary dataframe
     summary_df = pd.DataFrame.from_dict(query_info, orient='index')
     summary_df.reset_index(inplace=True)
-    summary_df.columns = ['Query Name', 'NumberHits', 'TotalDivergence', 'RefSpeciesHits']
+    summary_df.columns = ['Query Name', 'NumberHits', 'TotalDivergence', 'TotalANI', 'TotalAlignFracRef', 'RefSpeciesHits']
 
     #Ensure there exists more than one match for queries
     summary_df = summary_df[summary_df['TotalDivergence'] != -1.0]
     
     #Calculate the average divergence for each query
+    #Calculate average ANI/AF
     summary_df['AverageHitDivergence'] = summary_df['TotalDivergence'] / summary_df['NumberHits']
+    summary_df['AverageANI'] = summary_df['TotalANI']/summary_df['NumberHits']
+    summary_df['AverageAlignFracRef'] = summary_df['TotalAlignFracRef']/summary_df['NumberHits']
     
     #Convert ref hits to string and remove curly brackets and single quotation marks
     summary_df['RefSpeciesHits'] = summary_df['RefSpeciesHits'].apply(lambda x: ', '.join(x))
@@ -208,7 +215,7 @@ def analyze_results(input_file, output_file, tree, species_file):
     concat_df = concat_df.drop('Query Name', axis=1)
     
     #Reorder results columns
-    output_order = ['GenomeID/AccessionNumber', 'QuerySpecies', 'GenomePosition', 'NumberHits', 'TotalDivergence', 'AverageHitDivergence', 'RefSpeciesHits'] 
+    output_order = ['GenomeID/AccessionNumber', 'QuerySpecies', 'GenomePosition', 'NumberHits', 'TotalDivergence', 'AverageHitDivergence', 'AverageANI', 'AverageAlignFracRef', 'RefSpeciesHits'] 
     concat_df = concat_df.reindex(columns=output_order)
     
     #Write the summary DataFrame to a new results file (tabs as separators)
