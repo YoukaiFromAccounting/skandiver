@@ -136,6 +136,7 @@ def analyze_results(input_file, output_file, tree, species_file):
         match_name = process_name(row['Ref_name'])
         ani = float(row['ANI'])
         align_frac_ref = float(row['Align_fraction_ref'])
+        align_frac_q = float(row['Align_fraction_query'])
         
         #IMPORTANT: Check if species exist in directory
         if query_name in query_info:
@@ -143,11 +144,12 @@ def analyze_results(input_file, output_file, tree, species_file):
             query_info[query_name]['TotalDivergence'] += divergence_time
             query_info[query_name]['TotalANI'] += ani
             query_info[query_name]['TotalAlignFracRef'] += align_frac_ref
+            query_info[query_name]['TotalAlignFracQuery'] += algn_frac_q
             #Append total species matches 
             if match_name not in query_info[query_name]['RefSpeciesHits']:
                 query_info[query_name]['RefSpeciesHits'].add(match_name)
         else:
-            query_info[query_name] = {'NumberHits': 1, 'TotalDivergence': divergence_time, 'RefSpeciesHits': {match_name}, 'TotalANI': ani, 'TotalAlignFracRef': align_frac_ref}
+            query_info[query_name] = {'NumberHits': 1, 'TotalDivergence': divergence_time, 'RefSpeciesHits': {match_name}, 'TotalANI': ani, 'TotalAlignFracRef': align_frac_ref, 'TotalAlignFracQuery': align_frac_q}
 
     #Recalculate divergence time for unknown query
     for query_name, info in query_info.items():
@@ -187,16 +189,16 @@ def analyze_results(input_file, output_file, tree, species_file):
                             total_divergence += temporary_divergence_time
                             total_pairs += 1
             
-            
+            """
             if total_pairs > 0:
                 new_divergence_time = total_divergence / total_pairs
                 info['TotalDivergence'] = new_divergence_time
-            """
+            
             
     #Create summary dataframe
     summary_df = pd.DataFrame.from_dict(query_info, orient='index')
     summary_df.reset_index(inplace=True)
-    summary_df.columns = ['Query Name', 'NumberHits', 'TotalDivergence', 'RefSpeciesHits', 'TotalANI', 'TotalAlignFracRef']
+    summary_df.columns = ['Query Name', 'NumberHits', 'TotalDivergence', 'RefSpeciesHits', 'TotalANI', 'TotalAlignFracRef', 'TotalAlignFracQuery']
 
     #Ensure there exists more than one match for queries
     summary_df = summary_df[summary_df['TotalDivergence'] != -1.0]
@@ -206,6 +208,7 @@ def analyze_results(input_file, output_file, tree, species_file):
     summary_df['AverageHitDivergence'] = summary_df['TotalDivergence'] / summary_df['NumberHits']
     summary_df['AverageANI'] = summary_df['TotalANI']/summary_df['NumberHits']
     summary_df['AverageAlignFracRef'] = summary_df['TotalAlignFracRef']/summary_df['NumberHits']
+    summary_df['AverageAlignFracQuery'] = summary_df['TotalAlignFracQuery']/summary_df['NumberHits']
     
     #Convert ref hits to string and remove curly brackets and single quotation marks
     summary_df['RefSpeciesHits'] = summary_df['RefSpeciesHits'].apply(lambda x: ', '.join(x))
@@ -215,7 +218,7 @@ def analyze_results(input_file, output_file, tree, species_file):
     concat_df = concat_df.drop('Query Name', axis=1)
     
     #Reorder results columns
-    output_order = ['GenomeID/AccessionNumber', 'QuerySpecies', 'GenomePosition', 'NumberHits', 'TotalDivergence', 'AverageHitDivergence', 'AverageANI', 'AverageAlignFracRef', 'RefSpeciesHits'] 
+    output_order = ['GenomeID/AccessionNumber', 'QuerySpecies', 'GenomePosition', 'NumberHits', 'TotalDivergence', 'AverageHitDivergence', 'AverageANI', 'AverageAlignFracRef', 'AverageAlignFracQuery', 'RefSpeciesHits'] 
     concat_df = concat_df.reindex(columns=output_order)
     
     #Write the summary DataFrame to a new results file (tabs as separators)
