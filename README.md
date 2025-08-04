@@ -103,6 +103,12 @@ As skandiver is considerably faster than gene annotation-based mobile element fi
   Brian Zhang, xiaoleiz@andrew.cmu.edu (Contributing author)  
   Grace Oualline, gouallin@andrew.cmu.edu (Contributing author)
 
+## Citation
+If you use skandiver in your research or publication, please cite:
+
+* Zhang, X. B., Oualline, G., Shaw, J., & Yu, Y. W. (2024). skandiver: a divergence-based analysis tool for identifying intercellular mobile genetic elements. Bioinformatics (Oxford, England), 40(Suppl 2), ii155–ii164. https://doi.org/10.1093/bioinformatics/btae398
+* Shaw, J., & Yu, Y. W. (2023). Fast and robust metagenomic sequence comparison through sparse chaining with skani. Nature methods, 20(11), 1661–1665. https://doi.org/10.1038/s41592-023-02018-3
+
 ## Acknowledgements
 We would like to express our gratitude to the following individuals and organizations for their major contributions and support in the development of skandiver: 
 * Jim Shaw (https://github.com/bluenote-1577) for the creation and continuous support of skani, a fundamental tool utilized by skandiver for ANI computations, as well as providing valuable guidance regarding the overall quality and usability of skandiver.
