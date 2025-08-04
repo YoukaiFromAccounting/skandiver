@@ -26,7 +26,7 @@ chmod +x skani
 skani search requires a database of representative genomes to query against. The current recommended database is the Genome Taxonomy Database (GTDB), which contains >85,000 representative genomes. 
 To setup this database, first ensure that the following requirements are met: 
 * skani is installed and in PATH (i.e. typing ```skani -h``` works). Visit https://github.com/bluenote-1577/skani for more information on setting up skani.
-* ~120 GB free disk space is available for the uncompressed database and indexing.
+* Ensure that approximately 120 GB free disk space is available for the uncompressed database and indexing.
 
 First, download the compressed GTDB database and unzip it:
 ```
@@ -90,7 +90,7 @@ LFMS01000011.1	Pseudomonas_aeruginosa	1662427-1672426	8	4954.9287	619.3660875  S
 LFMS01000011.1	Pseudomonas_aeruginosa	1672427-1682426	6	1992.8886999999997	332.1481166666666  Stutzerimonas_stutzeri, Pseudomonas_putida, Pseudomonas_mosselii, Pseudomonas_saponiphila, Achromobacter_xylosoxidans
 
 ```
-* GenomeID/AccessionNumber: the unique sequence identifier for the complete query species.
+* GenomeID/AccessionNumber: the unique sequence identifier for the complete query genome.
 * QuerySpecies: the NCBI common name of the query assembly.
 * GenomePosition: the estimated fragment of the whole genome assembly containing the mobile genetic element.
 * NumberofHits: the number of unique species that the query fragment mapped to with >95% ANI and >90% align fraction (extremely high degree of similarity).
