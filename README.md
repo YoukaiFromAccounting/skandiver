@@ -22,7 +22,7 @@ chmod +x skani
 ./skani -h
 ```
 
-## Setting up database of representative genomes
+## Setting up database of representative genomes (OPTION A)
 skani search requires a database of representative genomes to query against. The current recommended database is the Genome Taxonomy Database (GTDB), which contains >85,000 representative genomes. 
 To setup this database, first ensure that the following requirements are met: 
 * skani is installed and in PATH (i.e. typing ```skani -h``` works). Visit https://github.com/bluenote-1577/skani for more information on setting up skani.
@@ -52,6 +52,16 @@ skani sketch -l customdb_file_names.txt -o customdb_skani_database_ani -t 20
 ```
 Now you have created a custom database of representative genomes that skandiver/skani can be used to query against. 
 
+## Use a pre-sketched database of representative genomes (OPTION B)
+
+Alternatively, you can download a preprocessed version of the GTDB-R226 database for searching:
+
+```
+wget http://faust.compbio.cs.cmu.edu/skani-files/skani_gtdb_r226-v0.3.tar.gz
+tar -zxvf skani_gtdb_r226-v0.3.tar.gz
+```
+
+Once extracted, you should have the skani_gtdb_r226-v0.3 database ready to use. This database can be used in the same way as gtdb_database_skani_ani would, if you followed the steps in Option A. 
 
 ## Installation and quick start
 Once the three prerequisites have been met (skani, database of representative genomes, python), you are now ready to initialize and begin working with skandiver. To begin, download the skandiver repository: 
